@@ -12,8 +12,8 @@ class HltexOverleaf < Formula
 
   def install
       FileUtils.mkdir_p  "/Library/Google/Chrome/NativeMessagingHosts/com.hltex.overleaf.json"
-      FileUtils.cp "com.hltex.overleaf.json", "/Library/Google/Chrome/NativeMessagingHosts/com.hltex.overleaf.json"
+      FileUtils.cp_r "com.hltex.overleaf.json", "/Library/Google/Chrome/NativeMessagingHosts/com.hltex.overleaf.json", remove_destination: true
       FileUtils.mkdir_p  "/usr/local/bin"
-      FileUtils.cp "overleaf_translator", "/usr/local/bin/"
+      FileUtils.cp_r "overleaf_translator", "/usr/local/bin/", remove_destination: true
   end
 end
