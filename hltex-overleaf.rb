@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'sudo'
 
 
 class HltexOverleaf < Formula
@@ -11,9 +12,11 @@ class HltexOverleaf < Formula
     bottle :unneeded
 
     def install
-        FileUtils.mkdir_p  "/Library/Google/Chrome/NativeMessagingHosts"
-        FileUtils.cp_r "com.hltex.overleaf.json", "/Library/Google/Chrome/NativeMessagingHosts/com.hltex.overleaf.json", remove_destination: true
-        FileUtils.mkdir_p  "/usr/local/bin"
-        FileUtils.cp_r "overleaf_translator", "/usr/local/bin/", remove_destination: true
+        Sudo::Wrapper.run do |sudo|
+            sudo[FileUtils].mkdir_p  "/Library/Google/Chrome/NativeMessagingHosts"
+            sudo[FileUtils].cp_r "com.hltex.overleaf.json", "/Library/Google/Chrome/NativeMessagingHosts/com.hltex.overleaf.json", remove_destination: true
+            sudo[FileUtils].mkdir_p  "/usr/local/bin"
+            sudo[FileUtils].cp_r "overleaf_translator", "/usr/local/bin/", remove_destination: true
+        end
     end
 end
